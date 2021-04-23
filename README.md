@@ -4,6 +4,16 @@
     
 - This is an application that can be used to write, save, and delete notes. It uses Express.js back end code to save, retrieve, and delete data from a JSON file.
 
+
+![noteTaker1](https://user-images.githubusercontent.com/60542798/115814882-89244700-a3bb-11eb-83e3-f1fc49495239.png)
+
+
+![noteTaker2](https://user-images.githubusercontent.com/60542798/115814897-8e819180-a3bb-11eb-89cf-0b2ae5a606f9.png)
+
+
+## Link to deployed app on Heroku
+- https://tranquil-fjord-66540.herokuapp.com/
+
 ## Table of Contents
 - <a href="#inst">Installation<a>
 - <a href="#use">Usage<a>
