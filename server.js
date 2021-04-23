@@ -69,7 +69,19 @@ app.route("/api/notes")
         res.json(newNote);
     });
 
+// Setting up app.delete to remove notes from note pad
+app.delete("/api/notes/:id", (req, res) => {
+    let jsonFilePath = path.join(__dirname, "/db/db.json");
+    // for loop that uses id to delete note
+    for (let i = 0; i < DB.length; i++) {
 
+        if (DB[i].id == req.params.id) {
+            // Splice takes i position, and then deletes the 1 note.
+            database.splice(i, 1);
+            break;
+        }
+    }
+});
 
 // app.listen to set up the server
 app.listen(PORT, () => {
