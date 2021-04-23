@@ -76,7 +76,7 @@ app.delete("/api/notes/:id", (req, res) => {
     for (let i = 0; i < DB.length; i++) {
         if (DB[i].id == req.params.id) {
             // Splice takes i position, and then deletes the 1 note.
-            database.splice(i, 1);
+            DB.splice(i, 1);
             break;
         }
     }
@@ -84,9 +84,9 @@ app.delete("/api/notes/:id", (req, res) => {
     fs.writeFileSync(jsonPath, JSON.stringify(DB),(err) => {
         if (err) {
             return console.log(err);
-        } else {
-            console.log("Your note was deleted!");
         }
+        console.log("Note deleted!!!");
+        
     });
     res.json(DB);
 });
