@@ -17,6 +17,7 @@ app.use(express.json());
 
 // Below code handles when users visit each of the pages.
 // In each of the below cases the user is shown an HTML page
+// Changed '*' to '/' because '*' did not work
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "/public/index.html"));
 });
@@ -27,6 +28,46 @@ app.get("/notes", (req, res) => {
 });
 
 
+// Setting up notes route
+app.route("/api/notes")
+    // Gets note list
+    .get((req, res) => {
+        res.json(DB);
+    })
+
+    // Adds a new note to db.json
+    .post((req, res) => {
+        let jsonPath = path.join(__dirname, "/db/db.json");
+        let newNote = req.body;
+
+        // This allows the test note to be the original note.
+        let highestId = 99;
+        // Loop through the array to find the highest ID.
+        for (let i = 0; i < DB.length; i++) {
+            let individualNote = DB[i];
+
+            if (individualNote.id > highestId) {
+                // highestId will always be the highest numbered id in the notesArray.
+                highestId = individualNote.id;
+            }
+        };
+        // This assigns an ID to the newNote.
+        newNote.id = highestId + 1;
+
+        // Push it to db.json
+        DB.push(newNote);
+
+        // Rewrites db.json to add note
+        fs.writeFile(jsonPath, JSON.stringify(DB),(err) => {
+            if (err) {
+                return console.log(err);
+            } else {
+                console.log("Note saved!!!");
+            }
+        });
+        // Returns user's new note. 
+        res.json(newNote);
+    });
 
 
 
