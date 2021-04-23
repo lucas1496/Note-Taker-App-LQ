@@ -51,7 +51,7 @@ app.route("/api/notes")
                 highestId = individualNote.id;
             }
         };
-        // This assigns an ID to the newNote.
+        // This assigns an id to the newNote.
         newNote.id = highestId + 1;
 
         // Push it to db.json
@@ -71,16 +71,24 @@ app.route("/api/notes")
 
 // Setting up app.delete to remove notes from note pad
 app.delete("/api/notes/:id", (req, res) => {
-    let jsonFilePath = path.join(__dirname, "/db/db.json");
+    let jsonPath = path.join(__dirname, "/db/db.json");
     // for loop that uses id to delete note
     for (let i = 0; i < DB.length; i++) {
-
         if (DB[i].id == req.params.id) {
             // Splice takes i position, and then deletes the 1 note.
             database.splice(i, 1);
             break;
         }
     }
+    // Function to remove note from db.json 
+    fs.writeFileSync(jsonPath, JSON.stringify(DB),(err) => {
+        if (err) {
+            return console.log(err);
+        } else {
+            console.log("Your note was deleted!");
+        }
+    });
+    res.json(DB);
 });
 
 // app.listen to set up the server
